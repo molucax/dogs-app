@@ -22,6 +22,10 @@ module.exports = (sequelize) => {
     },
     ls: {
       type: DataTypes.STRING,
+    },
+    fromDb: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     }
   },
   {

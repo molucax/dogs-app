@@ -5,6 +5,7 @@ module.exports = (sequelize) => {
     temperament: {
       type: DataTypes.STRING,
       allowNull: false,
+      primaryKey: true,
     }
   },
   {
