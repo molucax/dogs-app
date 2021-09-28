@@ -16,7 +16,7 @@ export const getAllDogs = ({ name, page }) => {
 			console.log("info: ", info.data.sliced)
 			return dispatch({
 				type: GET_ALL_DOGS,
-				payload: info.data.sliced
+				payload: info.data
 			})
 		})
 		.catch((err) => {

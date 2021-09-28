@@ -47,7 +47,7 @@ const getDogs = async (req, res) => {
 		let sliced = dogs.slice((dogsPerPage * (page-1)), ((dogsPerPage * (page-1)) + dogsPerPage));
 		return res.send({
 			sliced,
-			count: sliced.length
+			count: dogs.length
 		});
 	}
 	catch (err) {

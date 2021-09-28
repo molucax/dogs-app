@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "./Card.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllDogs, settingPage } from "../redux/actions/index.js";
+import Search from "./Search.jsx";
 
 const Home = () => {
 
@@ -21,7 +22,7 @@ const Home = () => {
 	return (
 
 		<div>
-
+			<Search />
 			{/* ----------------- PAGINADO Y CARDS ------------------ */}
 			<div>
 				<button
@@ -40,7 +41,7 @@ const Home = () => {
 			</div>
 			<div>
 				{
-					dogs?.length>0 && dogs.map((e) => {
+					dogs?.sliced?.length>0 && dogs.sliced.map((e) => {
 						return <Card image={e.image} name={e.name} key={e.id} />
 					})
 				}
