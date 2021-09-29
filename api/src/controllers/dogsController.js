@@ -4,7 +4,7 @@ const { Dog, Temperament, Op } = require("../db.js");
 // /dogs o /dogs?...
 const getDogs = async (req, res) => {
 	try {    // "" // 1
-		let { name, page, order } = req.query;
+		let { name, page, order, temperament } = req.query;
 		let dogsApi;
 		let dogsDb;
 		let dogs = [];
@@ -29,12 +29,12 @@ const getDogs = async (req, res) => {
 		}
 		else {
 			// console.log("ELSE")
-			let dogsApi = (await axios.get("https://api.thedogapi.com/v1/breeds")).data
+			dogsApi = (await axios.get("https://api.thedogapi.com/v1/breeds")).data
 			dogsApi = dogsApi.map(e => {
 				return {
 					id: e.id,
 					name: e.name,
-					temperament: e.temperament,
+					temperament: e.temperament ? e.temperament : "Unknown",
 					height: e.height.metric,
 					weight: e.weight.metric,
 					ls: e.life_span,
@@ -44,7 +44,19 @@ const getDogs = async (req, res) => {
 			dogsDb = await Dog.findAll({include: Temperament})
 			dogsDb = dogsDb.map(e => e.dataValues)
 			dogs = dogsDb.concat(dogsApi);
-			// console.log("DOGS2: ", dogs)
+
+			if (temperament && temperament !== "") {
+				let doggiesDb = dogsDb.filter(e => e.Temperaments[0].temperament.includes(temperament))
+				let doggiesApi = dogsApi.filter(e => e.temperament.includes(temperament))
+				if(!dogsDb.length) {
+					dogs = doggiesApi.filter(elem => elem.temperament.includes(temperament))
+					// console.log("SOLO API: ", dogs)
+				}
+				else {
+					dogs = doggiesDb.concat(doggiesApi)
+					// console.log("CONCAT: ", dogs)
+				}
+			}
 		}
 		
 

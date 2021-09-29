@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getTemperaments, filterByTemperament } from "../redux/actions";
+import { getTemperaments, getAllDogs } from "../redux/actions";
 
 const Filter = () => {
 
@@ -13,7 +13,7 @@ const Filter = () => {
 	}, [dispatch])
 
 	const handleSelect = (e) => {
-		dispatch(filterByTemperament(e.target.value))
+		dispatch(getAllDogs({ temperament: e.target.value }))
 	} 
 
 	return (

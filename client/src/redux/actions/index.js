@@ -6,13 +6,15 @@ export const SET_ORDER = "SET_ORDER";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
 export const FILTER_BY_TEMPERAMENT = "FILTER_BY_TEMPERAMENT";
 
-export const getAllDogs = ({ page, order, name }) => {
+export const getAllDogs = ({ page, order, temperament, name }) => {
 	return (dispatch) => {
 		// "" da false
 		axios.get(`http://localhost:3001/dogs?
 			page=${page?page:1}
 			&
 			order=${order?order:""}
+			&
+			temperament=${temperament?temperament:""}
 			&
 			name=${name?name:""}
 		`) 
@@ -61,9 +63,18 @@ export const getTemperaments = () => {
 	}	
 }
 
-export const filterByTemperament = (temperament) => {
-	return {
-		type: FILTER_BY_TEMPERAMENT,
-		payload: temperament
-	}
-}
+// export const filterByTemperament = (temperament) => {
+// 	return async (dispatch) => {
+// 		let info = (await axios.get("http://localhost:3001/dogs")).data
+// 		console.log("INFO ", info)
+// 		info = info.slicedfilter(e => {
+// 			e.fromDb ?
+// 			e.Temperaments[0].temperament.includes(temperament) :
+// 			e.temperament.includes(temperament)
+// 		})
+// 		return dispatch({
+// 			type: FILTER_BY_TEMPERAMENT,
+// 			payload: info
+// 		})
+// 	}
+// }

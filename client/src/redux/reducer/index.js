@@ -39,15 +39,9 @@ export default function reducer (state = initialState, { type, payload }) {
 				temperaments: payload
 			}
 		case FILTER_BY_TEMPERAMENT:
-			let doggies = 
-					state.allDogs?.sliced?.filter(e => 
-					e.fromDb ? 
-					e.Temperaments[0].temperament.includes(payload) :
-					e.temperament.includes(payload)
-					)
 			return {
 				...state,
-				dogs: doggies
+				dogs: payload
 			}
 		default:
 			return state;
