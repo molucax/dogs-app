@@ -20,7 +20,7 @@ const preloadTemperaments = async (req, res) => {
 const getTemperaments = async (req, res) => {
 	try {
 		let temperaments = await Temperament.findAll();
-		res.json(temperaments);
+		res.json(temperaments); // devuelve [{temperament: "algo"}, {}, {}, ...]
 	}
 	catch (err) {
 		console.log(err)

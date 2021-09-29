@@ -16,14 +16,21 @@ const Search = () => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 		dispatch(settingName(input))
-		dispatch(getAllDogs({ page: 1, name: input }))
+		dispatch(getAllDogs({ 
+			page: 1, 
+			name: input 
+		}))
 		dispatch(settingPage(1));
 		setInput("");
 	}
 
 	return (
 		<form onSubmit={onSubmit}>
-			<input type="text" place="Search..." onChange={handleOnChange} value={input} />
+			<input 
+				type="text" 
+				place="Search..." 
+				onChange={handleOnChange} 
+				value={input} />
 			<button type="submit">🔦</button>
 		</form>
 	)

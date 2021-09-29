@@ -4,16 +4,18 @@ const { Dog, Temperament, Op } = require("../db.js");
 // /dogs o /dogs?...
 const getDogs = async (req, res) => {
 	try {    // "" // 1
-		let { name, page } = req.query;
+		let { name, page, order } = req.query;
 		let dogsApi;
 		let dogsDb;
 		let dogs = [];
 		page = page ? page : 1;
 		const dogsPerPage = 8;
-		// ACÁ ESTÁ
+		
 		if (name && name !== "") {
 			// console.log("IF NAME")
-			dogsApi = (await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}`)).data;
+			dogsApi = (await axios.get(`
+				https://api.thedogapi.com/v1/breeds/search?q=${name}
+			`)).data;
 			dogsDb = await Dog.findAll({
 				where: {
 					name: {
@@ -44,6 +46,40 @@ const getDogs = async (req, res) => {
 			dogs = dogsDb.concat(dogsApi);
 			// console.log("DOGS2: ", dogs)
 		}
+		
+
+		// ORDEN ALFABÉTICO
+		if (order === "asc" || !order || order === "") {
+			dogs = dogs.sort((a, b) => {
+				return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+			})
+		}
+		if (order === "desc") {
+			dogs = dogs.sort((a, b) => {
+				return b.name.toLowerCase().localeCompare(a.name.toLowerCase())
+			})
+		}
+
+		// ORDEN POR PESO
+		if (order === "light") {
+			dogs = dogs.sort((a, b) => {
+				let aMin = a.weight.split(" - ")[0];
+				let bMin = b.weight.split(" - ")[0];
+				if (Number(aMin) > Number(bMin)) return 1;
+				if (Number(aMin) < Number(bMin)) return -1;
+				return 0;
+			})
+		}
+		if (order === "heavy") {
+			dogs = dogs.sort((a, b) => {
+				let aMax = a.weight.split(" - ")[1];
+				let bMax = b.weight.split(" - ")[1];
+				if (Number(bMax) > Number(aMax)) return 1;
+				if (Number(bMax) < Number(aMax)) return -1;
+				return 0;
+			})
+		}
+		
 		let sliced = dogs.slice((dogsPerPage * (page-1)), ((dogsPerPage * (page-1)) + dogsPerPage));
 		return res.send({
 			sliced,

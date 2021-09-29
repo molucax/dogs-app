@@ -1,19 +1,22 @@
-import { GET_ALL_DOGS, SET_NAME, SET_PAGE } from "../actions";
+import { GET_ALL_DOGS, GET_TEMPERAMENTS, SET_NAME, SET_PAGE, SET_ORDER, FILTER_BY_TEMPERAMENT } from "../actions";
 
 const initialState = {
 	dogs: [],
+	allDogs: [],
+	temperaments: [],
 	page: 1,
 	name: "",
-	order: ""
+	order: "",
 }
 
 export default function reducer (state = initialState, { type, payload }) {
-	console.log(payload)
+	// console.log(payload)
 	switch(type) {
 		case GET_ALL_DOGS:
 			return {
 				...state, 
-				dogs: payload
+				dogs: payload,
+				allDogs: payload
 			}
 		case SET_PAGE:
 			return {
@@ -24,6 +27,27 @@ export default function reducer (state = initialState, { type, payload }) {
 			return {
 				...state,
 				name: payload
+			}
+		case SET_ORDER:
+			return {
+				...state,
+				order: payload
+			}
+		case GET_TEMPERAMENTS:
+			return {
+				...state,
+				temperaments: payload
+			}
+		case FILTER_BY_TEMPERAMENT:
+			let doggies = 
+					state.allDogs?.sliced?.filter(e => 
+					e.fromDb ? 
+					e.Temperaments[0].temperament.includes(payload) :
+					e.temperament.includes(payload)
+					)
+			return {
+				...state,
+				dogs: doggies
 			}
 		default:
 			return state;
