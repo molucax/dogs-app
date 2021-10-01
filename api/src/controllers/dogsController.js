@@ -36,7 +36,7 @@ const getDogs = async (req, res) => {
 					name: e.name,
 					temperament: e.temperament ? e.temperament : "Unknown",
 					height: e.height.metric,
-					weight: e.weight.metric,
+					weight: e.weight.metric ? e.weight.metric : "0",
 					ls: e.life_span,
 					image: e.image.url
 				}
@@ -74,6 +74,8 @@ const getDogs = async (req, res) => {
 
 		// ORDEN POR PESO
 		if (order === "light") {
+			// dogs = dogs.map(e => {
+			// })
 			dogs = dogs.sort((a, b) => {
 				let aMin = a.weight.split(" - ")[0];
 				let bMin = b.weight.split(" - ")[0];
@@ -84,8 +86,10 @@ const getDogs = async (req, res) => {
 		}
 		if (order === "heavy") {
 			dogs = dogs.sort((a, b) => {
-				let aMax = a.weight.split(" - ")[1];
-				let bMax = b.weight.split(" - ")[1];
+				let aMax = a.weight.split(" - ");
+				let bMax = b.weight.split(" - ");
+				aMax = aMax.length === 1 ? aMax[0] : aMax[1];
+				bMax = bMax.length === 1 ? bMax[0] : bMax[1];
 				if (Number(bMax) > Number(aMax)) return 1;
 				if (Number(bMax) < Number(aMax)) return -1;
 				return 0;
@@ -94,8 +98,12 @@ const getDogs = async (req, res) => {
 		
 		let sliced = dogs.slice((dogsPerPage * (page-1)), ((dogsPerPage * (page-1)) + dogsPerPage));
 		return res.send({
-			sliced,
+			sliced, 
+			// dogs UNA PAGINA
+			all: dogs, 
+			// dogs TODOS, ya filtrados (si corresponde) por cualquier combinación de {order, name, page, temperament}
 			count: dogs.length
+			// cantidad de dogs totales filtrados (sin paginado)
 		});
 	}
 	catch (err) {

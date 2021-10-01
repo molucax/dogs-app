@@ -18,7 +18,7 @@ const Search = () => {
 		dispatch(settingName(input))
 		dispatch(getAllDogs({ 
 			page: 1, 
-			name: input 
+			name: input
 		}))
 		dispatch(settingPage(1));
 		setInput("");

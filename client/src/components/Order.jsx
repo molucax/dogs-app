@@ -1,14 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllDogs, settingOrder } from "../redux/actions";
+import { getAllDogs, settingOrder, settingPage } from "../redux/actions";
 
 const Order = () => {
-	const { name, page } = useSelector(state => state);
+	const { name, temperament, origin } = useSelector(state => state);
 	const dispatch = useDispatch();
 
 	const handleOrder = (e) => {
 		dispatch(settingOrder(e.target.value));
-		dispatch(getAllDogs({ name, page, order: e.target.value }));
+		dispatch(getAllDogs({ name, page: 1, temperament, origin, order: e.target.value }));
+		dispatch(settingPage(1));
 	}
 
 	return (

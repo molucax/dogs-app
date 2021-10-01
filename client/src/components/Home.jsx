@@ -10,14 +10,14 @@ import Filter from "./Filter.jsx";
 const Home = () => {
 
 	const dispatch = useDispatch();
-	const { dogs, page, name, order } = useSelector(state => state);
+	const { dogs, page, name, order, temperament } = useSelector(state => state);
 
 	useEffect(() => {
 		dispatch(getAllDogs({}))
 	}, [dispatch])
 
 	const changePage = (page) => {
-		dispatch(getAllDogs({ name, page, order }))
+		dispatch(getAllDogs({ name, page, order, temperament }))
 		dispatch(settingPage(page))
 	}
 
@@ -45,7 +45,7 @@ const Home = () => {
 			</div>
 			<div>
 				{
-					dogs?.sliced?.length>0 && dogs.sliced.map((e) => {
+					dogs?.sliced?.length>0 && dogs?.sliced.map((e) => {
 						return <Card image={e.image} name={e.name} key={e.id} />
 					})
 				}

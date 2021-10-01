@@ -1,12 +1,14 @@
-import { GET_ALL_DOGS, GET_TEMPERAMENTS, SET_NAME, SET_PAGE, SET_ORDER, FILTER_BY_TEMPERAMENT } from "../actions";
+import { GET_ALL_DOGS, GET_TEMPERAMENTS, SET_NAME, SET_PAGE, SET_ORDER, SET_TEMPERAMENT, SET_ORIGIN } from "../actions";
 
 const initialState = {
-	dogs: [],
-	allDogs: [],
+	dogs: {},
+	allDogs: {},
 	temperaments: [],
 	page: 1,
 	name: "",
 	order: "",
+	temperament: "",
+	origin: "",
 }
 
 export default function reducer (state = initialState, { type, payload }) {
@@ -33,15 +35,20 @@ export default function reducer (state = initialState, { type, payload }) {
 				...state,
 				order: payload
 			}
+		case SET_TEMPERAMENT:
+			return {
+				...state,
+				temperament: payload
+			}
+		case SET_ORIGIN:
+			return {
+				...state,
+				origin: payload
+			}
 		case GET_TEMPERAMENTS:
 			return {
 				...state,
 				temperaments: payload
-			}
-		case FILTER_BY_TEMPERAMENT:
-			return {
-				...state,
-				dogs: payload
 			}
 		default:
 			return state;
