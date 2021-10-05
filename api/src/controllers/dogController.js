@@ -1,25 +1,29 @@
-const { Dog, Temperament } = require("../db.js");
+const { Dog, Temperament, Op } = require("../db.js");
 
 const createDog = async (req, res) => {
-	const { name, height, weight, ls, temperaments, fromDb } = req.body;
+	const { name, hmin, hmax, wmin, wmax, lsmin, lsmax, temperaments } = req.body;
 	try {
 		let newDog = await Dog.create({
 			name: name.toLowerCase(),
-			height,
-			weight,
-			ls,
-			fromDb
+			height: `${hmin} - ${hmax}`,
+			weight: `${wmin} - ${wmax}`,
+			ls: `${lsmin} - ${lsmax} years`,
+			fromDb: true
 		})
+		let arrTemps = temperaments.split(", ")
 		let temp = await Temperament.findAll({
 			where: {
-				temperament: temperaments,
+				temperament: {
+						[Op.in]: arrTemps
+					}
 			},
 		})
-		newDog.addTemperament(temp);
-		res.json(newDog);
+		await newDog.addTemperament(temp);
+		// console.log(newDog);
+		res.send("Dog created successfully!");
 	}
 	catch (err) {
-		res.send(err);
+		console.log("Error en create!");
 	}
 }
 
