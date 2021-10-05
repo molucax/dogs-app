@@ -3,30 +3,25 @@ import Card from "./Card.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllDogs, settingPage } from "../redux/actions/index.js";
-import Search from "./Search.jsx";
-import Order from "./Order.jsx";
-import Filter from "./Filter.jsx";
+import Nav from "./Nav.jsx";
 
 const Home = () => {
 
 	const dispatch = useDispatch();
-	const { dogs, page, name, order, temperament } = useSelector(state => state);
+	const { dogs, page, name, order, temperament, origin } = useSelector(state => state);
 
 	useEffect(() => {
 		dispatch(getAllDogs({}))
 	}, [dispatch])
 
 	const changePage = (page) => {
-		dispatch(getAllDogs({ name, page, order, temperament }))
+		dispatch(getAllDogs({ name, page, order, temperament, origin }))
 		dispatch(settingPage(page))
 	}
 
 	return (
 
 		<div>
-			<Search />
-			<Filter />
-			<Order />
 			{/* ----------------- PAGINADO Y CARDS ------------------ */}
 			<div>
 				<button
@@ -46,7 +41,7 @@ const Home = () => {
 			<div>
 				{
 					dogs?.sliced?.length>0 && dogs?.sliced.map((e) => {
-						return <Card image={e.image} name={e.name} key={e.id} />
+						return <Card image={e.image} name={e.name} key={e.id} id={e.id} />
 					})
 				}
 			</div>
