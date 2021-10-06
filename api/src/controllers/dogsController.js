@@ -23,7 +23,8 @@ const getDogs = async (req, res) => {
 					}
 				}
 			})
-			dogsDb = [dogsDb[0].dataValues]
+			console.log("dogs DB: ", dogsDb)
+			dogsDb = dogsDb.map(e => e.dataValues)
 			dogs = dogsDb.concat(dogsApi);
 			// console.log("DOGS1: ", dogs)	
 		}
