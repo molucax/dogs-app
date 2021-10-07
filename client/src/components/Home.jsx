@@ -40,9 +40,29 @@ const Home = () => {
 			</div>
 			<div>
 				{
-					dogs?.sliced?.length>0 && dogs?.sliced.map((e) => {
-						return <Card image={e.image} name={e.name} key={e.id} id={e.id} />
+					dogs?.sliced?.length ?
+				 	dogs.sliced.map((e) => {
+				 		let t;
+				 		if (e.fromDb) {
+				 			t = e.Temperaments.map(e => e.temperament)
+				 			t = t.join(", ");
+				 		}
+				 		else{
+				 			t = e.temperament;
+				 		}
+						return (
+							<Card 
+								image={e.image}
+								name={e.name} 
+								key={e.id} 
+								id={e.id} 
+								temperament={t} 
+								weight={e.weight}
+							/>
+						)
 					})
+					:
+					<div>Loading...</div>
 				}
 			</div>
 		</div>
