@@ -13,15 +13,15 @@ const Filter = () => {
 	}, [dispatch])
 
 	const handleSelectTemperament = (e) => {
+		dispatch(settingPage(1));
 		dispatch(settingTemperament(e.target.value));
 		dispatch(getAllDogs({ temperament: e.target.value, page: 1, name, order, origin }));
-		dispatch(settingPage(1));
 	} 
 
 	const handleSelectOrigin = (e) => {
-		dispatch(settingOrigin(e.target.value));
-		dispatch(getAllDogs({ origin: e.target.value, page: 1, name, order, temperament }));
 		dispatch(settingPage(1));
+		dispatch(settingOrigin(e.target.value));
+		dispatch(getAllDogs({ page: 1, name, order, temperament, origin}));
 	}
 
 	return (

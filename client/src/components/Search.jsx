@@ -5,7 +5,7 @@ import { getAllDogs, settingPage, settingName } from "../redux/actions";
 const Search = () => {
 
 	const dispatch = useDispatch();
-	const { order, temperaments, origin } = useSelector(state => state);
+	const { order, temperament, origin } = useSelector(state => state);
 
 	const [input, setInput] = useState("");
 
@@ -21,8 +21,8 @@ const Search = () => {
 			page: 1, 
 			name: input,
 			order,
-			temperaments,
-			origin,
+			temperament,
+			origin
 		}))
 		dispatch(settingPage(1));
 		setInput("");

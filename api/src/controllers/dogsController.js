@@ -3,8 +3,8 @@ const { Dog, Temperament, Op } = require("../db.js");
 
 // /dogs o /dogs?...
 const getDogs = async (req, res) => {
-	try {    // "" // 1
-		let { name, page, order, temperament } = req.query;
+	try {
+		let { name, page, order, temperament, origin } = req.query;
 		let dogsApi;
 		let dogsDb;
 		let dogs = [];
@@ -12,7 +12,6 @@ const getDogs = async (req, res) => {
 		const dogsPerPage = 8;
 		
 		if (name && name !== "") {
-			// console.log("IF NAME")
 			dogsApi = (await axios.get(`
 				https://api.thedogapi.com/v1/breeds/search?q=${name}
 			`)).data;
@@ -25,11 +24,9 @@ const getDogs = async (req, res) => {
 			})
 			console.log("dogs DB: ", dogsDb)
 			dogsDb = dogsDb.map(e => e.dataValues)
-			dogs = dogsDb.concat(dogsApi);
-			// console.log("DOGS1: ", dogs)	
+			dogs = dogsDb.concat(dogsApi);	
 		}
 		else {
-			// console.log("ELSE")
 			dogsApi = (await axios.get("https://api.thedogapi.com/v1/breeds")).data
 			dogsApi = dogsApi.map(e => {
 				return {
@@ -45,21 +42,26 @@ const getDogs = async (req, res) => {
 			dogsDb = await Dog.findAll({include: Temperament})
 			dogsDb = dogsDb.map(e => e.dataValues)
 			dogs = dogsDb.concat(dogsApi);
-
-			if (temperament && temperament !== "") {
-				let doggiesDb = dogsDb.filter(e => e.Temperaments[0].temperament.includes(temperament))
-				let doggiesApi = dogsApi.filter(e => e.temperament.includes(temperament))
-				if(!dogsDb.length) {
-					dogs = doggiesApi.filter(elem => elem.temperament.includes(temperament))
-					// console.log("SOLO API: ", dogs)
-				}
-				else {
-					dogs = doggiesDb.concat(doggiesApi)
-					// console.log("CONCAT: ", dogs)
-				}
-			}
 		}
-		
+
+		// if (origin === "created") {
+		// 	dogs = dogs.filter(e => e.fromDb)
+		// }
+		// if (origin === "existent") {
+		// 	dogs = dogs.filter(e => !e.fromDb)
+		// }
+
+		if (temperament && temperament !== "") {
+			let doggiesDb = dogsDb.filter(e => e.Temperaments[0].temperament.includes(temperament))
+			let doggiesApi = dogsApi.filter(e => e.temperament.includes(temperament))
+			if(!dogsDb.length) {
+				dogs = doggiesApi.filter(elem => elem.temperament.includes(temperament))
+			}
+			else {
+				dogs = doggiesDb.concat(doggiesApi)
+		    }
+		}
+
 
 		// ORDEN ALFABÉTICO
 		if (order === "asc" || !order || order === "") {
@@ -75,8 +77,6 @@ const getDogs = async (req, res) => {
 
 		// ORDEN POR PESO
 		if (order === "light") {
-			// dogs = dogs.map(e => {
-			// })
 			dogs = dogs.sort((a, b) => {
 				let aMin = a.weight.split(" - ")[0];
 				let bMin = b.weight.split(" - ")[0];
@@ -100,11 +100,12 @@ const getDogs = async (req, res) => {
 		let sliced = dogs.slice((dogsPerPage * (page-1)), ((dogsPerPage * (page-1)) + dogsPerPage));
 		return res.send({
 			sliced, 
-			// dogs UNA PAGINA
+			// dogs UNA PAGINA, la página depende de la variable: page
 			all: dogs, 
-			// dogs TODOS, ya filtrados (si corresponde) por cualquier combinación de {order, name, page, temperament}
-			count: dogs.length
-			// cantidad de dogs totales filtrados (sin paginado)
+			// dogs TODOS, ya filtrados (si corresponde) por cualquier combinación de: name, temperament, order
+			count: dogs.length,
+			// length del array completo, sin paginar
+			page,
 		});
 	}
 	catch (err) {
@@ -112,6 +113,7 @@ const getDogs = async (req, res) => {
 	}
 } 
 
+//        /dogs/:id
 const getDogById = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -127,12 +129,10 @@ const getDogById = async (req, res) => {
      				}
      		 	}
   		  	}))[0];
-			// console.log("DB ", dog)
 		}
 		else {
 			dog = (await axios.get("https://api.thedogapi.com/v1/breeds")).data
 			dog = dog.find(e => Number(e.id) === Number(id))
-			// console.log("API ", dog)
 		}
 		res.json(dog);
 	}

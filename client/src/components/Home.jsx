@@ -15,8 +15,8 @@ const Home = () => {
 	}, [dispatch])
 
 	const changePage = (page) => {
-		dispatch(getAllDogs({ name, page, order, temperament, origin }))
 		dispatch(settingPage(page))
+		dispatch(getAllDogs({ name, page, order, temperament, origin }))
 	}
 
 	return (
@@ -39,7 +39,7 @@ const Home = () => {
 				</button>
 			</div>
 			<div>
-				{
+				{	
 					dogs?.sliced?.length ?
 				 	dogs.sliced.map((e) => {
 				 		let t;

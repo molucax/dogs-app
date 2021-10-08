@@ -9,12 +9,13 @@ export const SET_TEMPERAMENT = "SET_TEMPERAMENT";
 export const GET_DOG = "GET_DOG";
 export const REMOVE_DOG = "REMOVE_DOG";
 export const CREATE_DOG = "CREATE_DOG";
+// export const ORDER_BY_NAME = "ORDER_BY_NAME";
+export const RESET_STATE = "RESET_STATE";
 
 
 export const getAllDogs = ({ page, order, temperament, name, origin }) => {
 	return async (dispatch) => {
 		try { 
-			const dogsPerPage = 8;
 			let dogs = (await axios.get(`http://localhost:3001/dogs?
 				page=${page?page:1}
 				&
@@ -22,22 +23,13 @@ export const getAllDogs = ({ page, order, temperament, name, origin }) => {
 				&
 				temperament=${temperament?temperament:""}
 				&
+				origin=${origin?origin:""}
+				&
 				name=${name?name:""}
 			`)).data
-			// dogs = {sliced, all, count}
-			if (origin) {
-				if (origin === "existent") {
-					dogs = {...dogs, all: dogs.all.filter(e => !e.fromDb)}
-				}
-				if (origin === "created") {
-					dogs = {...dogs, all: dogs.all.filter(e => e.fromDb)}
-				} 
-				dogs = {
-					...dogs,
-					sliced: dogs.all.slice((dogsPerPage * (page-1)), ((dogsPerPage * (page-1)) + dogsPerPage)),
-					count: dogs.all.length
-				}
-			}
+			// if (origin) {
+			// 	dogs = {...dogs, origin: true}
+			// }
 			return dispatch({
 				type: GET_ALL_DOGS,
 				payload: dogs
@@ -46,6 +38,19 @@ export const getAllDogs = ({ page, order, temperament, name, origin }) => {
 		catch (err) {
 			console.log(err);
 		}	
+	}
+}
+
+// export const orderByName = (order) => {
+// 	return {
+// 		type: ORDER_BY_NAME,
+// 		payload: order
+// 	}
+// }
+
+export const resetState = () => {
+	return {
+		type: RESET_STATE
 	}
 }
 

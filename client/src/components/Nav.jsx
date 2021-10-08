@@ -5,7 +5,7 @@ import Search from "./Search.jsx";
 import Order from "./Order.jsx";
 import Filter from "./Filter.jsx";
 import { useDispatch } from "react-redux";
-import { getAllDogs } from "../redux/actions";
+import { getAllDogs, resetState } from "../redux/actions";
 
 const NavBarContainer = styled.div`
 `
@@ -15,6 +15,7 @@ const NavBarLink = styled(NavLink)`
 const Nav = () => {
 	const dispatch = useDispatch();
 	const handleReset = () => {
+		dispatch(resetState())
 		dispatch(getAllDogs({}))
 	}
 	return (
