@@ -16,7 +16,7 @@ const Home = () => {
 
 	const changePage = (page) => {
 		dispatch(settingPage(page))
-		dispatch(getAllDogs({ name, page, order, temperament, origin }))
+		dispatch(getAllDogs({ name, order, temperament, origin }))
 	}
 
 	return (

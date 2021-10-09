@@ -16,15 +16,14 @@ const Search = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+		dispatch(settingPage(1));
 		dispatch(settingName(input))
 		dispatch(getAllDogs({ 
-			page: 1, 
 			name: input,
 			order,
 			temperament,
 			origin
 		}))
-		dispatch(settingPage(1));
 		setInput("");
 	}
 

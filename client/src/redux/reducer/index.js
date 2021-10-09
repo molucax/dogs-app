@@ -26,31 +26,27 @@ const initialState = {
 export default function reducer (state = initialState, { type, payload }) {
 	// console.log(payload)
 	switch(type) {
-			case GET_ALL_DOGS:
-				let dogs = payload;
-				let order = state.order;
-				let page = state.page;
-				const dpp = 8;
-				let all = [...dogs.all]
-				if (order === "asc" || !order || order === "") {
-					all = all.sort((a, b) => {
-						return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-					})
-				}
-				if (order === "desc") {
-					all = all.sort((a, b) => {
-						return b.name.toLowerCase().localeCompare(a.name.toLowerCase())
-					})
-				}
-				let sliced = all.slice((dpp * (page-1)), ((dpp * (page-1)) + dpp))
-				dogs = {...dogs, all: all, count: all.length, sliced: sliced}
-				return {
-					...state,
-					dogs: dogs,
-				}
+		case GET_ALL_DOGS:
+			let dogs = payload;
+			let order = state.order;
+			let page = state.page;
+			const dpp = 8;
+			let all = [...dogs.all]
+			if (order === "asc" || !order || order === "") {
+				all = all.sort((a, b) => {
+					return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+				})
+			}
+			if (order === "desc") {
+				all = all.sort((a, b) => {
+					return b.name.toLowerCase().localeCompare(a.name.toLowerCase())
+				})
+			}
+			let sliced = all.slice((dpp * (page-1)), ((dpp * (page-1)) + dpp))
+			dogs = {...dogs, all: all, count: all.length, sliced: sliced}
 			return {
-				...state, 
-				dogs: payload,
+				...state,
+				dogs: dogs,
 			}
 
 		case RESET_STATE:

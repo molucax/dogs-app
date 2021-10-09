@@ -8,8 +8,8 @@ const Order = () => {
 
 	const handleOrder = (e) => {
 		dispatch(settingOrder(e.target.value));
-		dispatch(getAllDogs({ name, page: 1, temperament, order: e.target.value, origin }));
 		dispatch(settingPage(1));
+		dispatch(getAllDogs({ order: e.target.value, name, temperament, origin }));
 	}
 
 	return (

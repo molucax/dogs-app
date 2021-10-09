@@ -4,12 +4,10 @@ const { Dog, Temperament, Op } = require("../db.js");
 // /dogs o /dogs?...
 const getDogs = async (req, res) => {
 	try {
-		let { name, page, order, temperament, origin } = req.query;
+		let { name, order, temperament, origin } = req.query;
 		let dogsApi;
 		let dogsDb;
 		let dogs = [];
-		page = page ? page : 1;
-		const dogsPerPage = 8;
 		
 		if (name && name !== "") {
 			dogsApi = (await axios.get(`
@@ -91,15 +89,10 @@ const getDogs = async (req, res) => {
 			})
 		}
 		
-		let sliced = dogs.slice((dogsPerPage * (page-1)), ((dogsPerPage * (page-1)) + dogsPerPage));
 		return res.send({
-			sliced: sliced,
-			// dogs UNA PAGINA, la página depende de la variable: page
 			all: dogs, 
 			// dogs TODOS, ya filtrados (si corresponde) por cualquier combinación de: name, temperament, order
 			count: dogs.length,
-			// length del array completo, sin paginar
-			page: page
 		});
 	}
 	catch (err) {
