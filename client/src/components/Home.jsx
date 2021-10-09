@@ -3,7 +3,6 @@ import Card from "./Card.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllDogs, settingPage } from "../redux/actions/index.js";
-import Nav from "./Nav.jsx";
 
 const Home = () => {
 
