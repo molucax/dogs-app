@@ -26,53 +26,32 @@ const initialState = {
 export default function reducer (state = initialState, { type, payload }) {
 	// console.log(payload)
 	switch(type) {
-
-		case GET_ALL_DOGS:
-			let dogs = {...state.dogs}
-			let page = state.page;
-			const dpp = 8;
-			if (state.origin === "created") {
-				let filtered = dogs.all.filter(e => e.fromDb)
-				let newSliced = filtered.slice(0, 8)
+			case GET_ALL_DOGS:
+				let dogs = payload;
+				let order = state.order;
+				let page = state.page;
+				const dpp = 8;
+				let all = [...dogs.all]
+				if (order === "asc" || !order || order === "") {
+					all = all.sort((a, b) => {
+						return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+					})
+				}
+				if (order === "desc") {
+					all = all.sort((a, b) => {
+						return b.name.toLowerCase().localeCompare(a.name.toLowerCase())
+					})
+				}
+				let sliced = all.slice((dpp * (page-1)), ((dpp * (page-1)) + dpp))
+				dogs = {...dogs, all: all, count: all.length, sliced: sliced}
 				return {
 					...state,
-					dogs: {...state.dogs, all: filtered, sliced: newSliced, count: filtered.length} 
+					dogs: dogs,
 				}
+			return {
+				...state, 
+				dogs: payload,
 			}
-			if (state.origin === "existent") {
-				let filtered = dogs.all.filter(e => !e.fromDb)
-				let newSliced = filtered.slice(0, 8)
-				return {
-					...state,
-					dogs: {...state.dogs, all: filtered, sliced: newSliced, count: filtered.length} 
-				}
-			}
-			else {
-				return {
-					...state, 
-					dogs: payload,
-					allDogs: payload
-				}
-			}
-
-		// case ORDER_BY_NAME:
-		// 	let page = state.page;
-		// 	let doggies = state.dogs.all;
-		// 	if (payload === "asc") {
-		// 		doggies = doggies.sort((a, b) => {
-		// 			return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-		// 		})
-		// 	}
-		// 	if (payload === "desc") {
-		// 		doggies = doggies.sort((a, b) => {
-		// 			return b.name.toLowerCase().localeCompare(a.name.toLowerCase())
-		// 		})
-		// 	}
-		// 	let newSliced = doggies.slice((8 * (page-1)), ((8 * (page-1)) + 8))
-		// 	return {
-		// 		...state,
-		// 		dogs: {...state.dogs, all: doggies, sliced: newSliced, count: doggies.length}
-		// 	}
 
 		case RESET_STATE:
 			return {

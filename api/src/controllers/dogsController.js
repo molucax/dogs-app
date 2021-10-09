@@ -41,38 +41,28 @@ const getDogs = async (req, res) => {
 			})
 			dogsDb = await Dog.findAll({include: Temperament})
 			dogsDb = dogsDb.map(e => e.dataValues)
+			dogsDb = dogsDb.map(obj => { 
+				let temps = obj.Temperaments.map(elem => elem.temperament)
+				temps = temps.join(", ")
+				return {...obj, temperament: temps }
+			})
 			dogs = dogsDb.concat(dogsApi);
 		}
-
-		// if (origin === "created") {
-		// 	dogs = dogs.filter(e => e.fromDb)
-		// }
-		// if (origin === "existent") {
-		// 	dogs = dogs.filter(e => !e.fromDb)
-		// }
-
 		if (temperament && temperament !== "") {
-			let doggiesDb = dogsDb.filter(e => e.Temperaments[0].temperament.includes(temperament))
-			let doggiesApi = dogsApi.filter(e => e.temperament.includes(temperament))
-			if(!dogsDb.length) {
-				dogs = doggiesApi.filter(elem => elem.temperament.includes(temperament))
+			dogs = dogs.filter(e => e.temperament.includes(temperament))
+		}
+		if (origin && origin !== "") {
+			if (origin === "created") {
+				let filtered = dogs.filter(e => e.fromDb)
+				dogs = filtered
+			}
+			if (origin === "existent") {
+				let filtered = dogs.filter(e => !e.fromDb)
+				dogs = filtered
 			}
 			else {
-				dogs = doggiesDb.concat(doggiesApi)
-		    }
-		}
-
-
-		// ORDEN ALFABÉTICO
-		if (order === "asc" || !order || order === "") {
-			dogs = dogs.sort((a, b) => {
-				return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-			})
-		}
-		if (order === "desc") {
-			dogs = dogs.sort((a, b) => {
-				return b.name.toLowerCase().localeCompare(a.name.toLowerCase())
-			})
+				dogs = dogs;
+			}
 		}
 
 		// ORDEN POR PESO
@@ -99,13 +89,13 @@ const getDogs = async (req, res) => {
 		
 		let sliced = dogs.slice((dogsPerPage * (page-1)), ((dogsPerPage * (page-1)) + dogsPerPage));
 		return res.send({
-			sliced, 
+			sliced: sliced,
 			// dogs UNA PAGINA, la página depende de la variable: page
 			all: dogs, 
 			// dogs TODOS, ya filtrados (si corresponde) por cualquier combinación de: name, temperament, order
 			count: dogs.length,
 			// length del array completo, sin paginar
-			page,
+			page: page
 		});
 	}
 	catch (err) {

@@ -21,7 +21,7 @@ const Filter = () => {
 	const handleSelectOrigin = (e) => {
 		dispatch(settingPage(1));
 		dispatch(settingOrigin(e.target.value));
-		dispatch(getAllDogs({ page: 1, name, order, temperament, origin}));
+		dispatch(getAllDogs({ page: 1, name, order, temperament, origin: e.target.value}));
 	}
 
 	return (

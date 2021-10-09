@@ -42,21 +42,13 @@ const Home = () => {
 				{	
 					dogs?.sliced?.length ?
 				 	dogs.sliced.map((e) => {
-				 		let t;
-				 		if (e.fromDb) {
-				 			t = e.Temperaments.map(e => e.temperament)
-				 			t = t.join(", ");
-				 		}
-				 		else{
-				 			t = e.temperament;
-				 		}
 						return (
 							<Card 
 								image={e.image}
 								name={e.name} 
 								key={e.id} 
 								id={e.id} 
-								temperament={t} 
+								temperament={e.temperament} 
 								weight={e.weight}
 							/>
 						)
