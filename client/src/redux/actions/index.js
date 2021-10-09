@@ -105,7 +105,7 @@ export const getTemperaments = () => {
 export const getDog = (id) => {
 	return async (dispatch) => {
 		try {
-			const dog = await axios.get(`http://localhost:3001/dogs/${id}`)
+			let dog = await axios.get(`http://localhost:3001/dogs/${id}`)
 			return dispatch({
 				type: GET_DOG,
 				payload: dog.data

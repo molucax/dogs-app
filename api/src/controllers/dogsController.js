@@ -48,9 +48,13 @@ const getDogs = async (req, res) => {
 			})
 			dogs = dogsDb.concat(dogsApi);
 		}
+
+		// FILTRADO TEMPERAMENT
 		if (temperament && temperament !== "") {
 			dogs = dogs.filter(e => e.temperament.includes(temperament))
 		}
+
+		// FILTRADO POR ORIGEN
 		if (origin && origin !== "") {
 			if (origin === "created") {
 				let filtered = dogs.filter(e => e.fromDb)
@@ -65,7 +69,7 @@ const getDogs = async (req, res) => {
 			}
 		}
 
-		// ORDEN POR PESO
+		// ORDENAMIENTO POR PESO
 		if (order === "light") {
 			dogs = dogs.sort((a, b) => {
 				let aMin = a.weight.split(" - ")[0];
@@ -118,11 +122,18 @@ const getDogById = async (req, res) => {
         				attributes: []
      				}
      		 	}
-  		  	}))[0];
+  		  	}))[0].dataValues;
+  		  	let t = dog.Temperaments.map(e => e.temperament)
+  		  	t = t.join(", ")
+  		  	console.log(dog)
+  		  	dog = {...dog, temperament: t, image: "https://e7.pngegg.com/pngimages/552/1/png-clipart-dogs-dogs.png"}
 		}
 		else {
 			dog = (await axios.get("https://api.thedogapi.com/v1/breeds")).data
 			dog = dog.find(e => Number(e.id) === Number(id))
+			let w = dog.weight.metric;
+			let h = dog.height.metric;
+			dog = {...dog, weight: w, height: h}
 		}
 		res.json(dog);
 	}

@@ -24,10 +24,14 @@ const Dog = (props) => {
 		<div>
 			<button onClick={goBack}>BACK</button>
 			{
-				dog?.name ?
+				dog ?
 				<div>
-					<img src={dog.image.url} alt="img not found"/>
+					<img src={dog.fromDb ? dog.image : dog.image?.url} alt="img not found"/>
 					<p>{dog.name}</p>
+					<p>{dog.temperament}</p>
+					<p>{dog.height}</p>
+					<p>{dog.weight}</p>
+					<p>{dog.ls}</p>
 				</div>
 				:
 				<div>Loading...</div>

@@ -39,7 +39,7 @@ const Filter = () => {
 				}
 			</select>
 			<select value="" onChange={handleSelectOrigin}>
-				<option value="both" key="both">-both-</option>
+				<option value="" key="both">-both-</option>
 				<option value="existent" key="existent">Existent</option>
 				<option value="created" key="created">Created</option>
 			</select> 
