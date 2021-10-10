@@ -1,16 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import Search from "./Search.jsx";
 import Order from "./Order.jsx";
 import Filter from "./Filter.jsx";
 import { useDispatch } from "react-redux";
 import { getAllDogs, resetState } from "../redux/actions";
-
-const NavBarContainer = styled.div`
-`
-const NavBarLink = styled(NavLink)`
-`
+import s from "./Nav.module.css";
 
 const Nav = () => {
 	const dispatch = useDispatch();
@@ -19,13 +14,13 @@ const Nav = () => {
 		dispatch(getAllDogs({}))
 	}
 	return (
-		<NavBarContainer>
-			<NavBarLink to="/create">CREATE A BREED</NavBarLink>
+		<div className={s.nav}>
+			<NavLink to="/create">CREATE A BREED</NavLink>
 			<button onClick={handleReset}>RESET</button>
 			<Search />
 			<Order />
 			<Filter />
-		</NavBarContainer>
+		</div>
 	)
 }
 

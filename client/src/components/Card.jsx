@@ -1,19 +1,39 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
+import s from "./Card.module.css";
 
-const CardContainer = styled.div`
-
-`
-
-const Card = ({ image, name, temperament, weight, id, fromDb }) => {
+const Card = ({ image, name, temperament, weight, id }) => {
+	let dogTemperaments = temperament.split(", ");
 	return (
-		<CardContainer>
-			<img src={image} alt={name} />
-			<NavLink to={`/dog/${id}`}>{name}</NavLink>
-			<p>{`${weight} kg`}</p>
-			<p>{temperament}</p>
-		</CardContainer>
+		// ----- VERTICAL -----
+		
+		<div className={s.card}>
+
+			{/*DIV 1*/}
+			<div className={s.nameContainer}>
+				<p className={s.name}>{name.toUpperCase()}</p>
+			</div>
+
+			{/*DIV 2*/}
+			<div className={s.cardElements}>
+				<div className={s.weightDiv}>
+					<p className={s.weight}>{`${weight} kg`}</p>
+				</div>
+				<div className={s.imgDiv}>
+					<img className={s.img} src={image} alt={name}/>
+				</div>
+		
+				<div className={s.temperamentsDiv}>
+					<div className={s.temperaments}>
+					{ 
+						dogTemperaments.map(t => {
+							return <li className={s.li} key={t}>{t}</li>
+						})
+					}
+					</div>
+				</div>
+			</div>
+		</div>
 	)
 }
 

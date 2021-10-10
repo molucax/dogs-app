@@ -37,6 +37,7 @@ const Form = () => {
 
 	const [errorNum, setErrorNum] = useState("");
 	function validateNum(e) {
+		e.preventDefault();
 		let { name, value } = e.target;
 		if (name.slice(-3) === "min") {
 			let max = name.slice(0, 1)
@@ -65,6 +66,7 @@ const Form = () => {
 	}
 
 	const handleChange = (e) => {
+		e.preventDefault();
 		let { name, value } = e.target;
 		if (name === "temperaments" && formulario.temperaments !== ""){
 			setFormulario({
