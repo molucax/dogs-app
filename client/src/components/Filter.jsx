@@ -27,6 +27,7 @@ const Filter = () => {
 	return (
 		<div>
 			<select value="" onChange={handleSelectTemperament}>
+				<option selected value="" key="temperament">TEMPERAMENT</option>
 				{
 					temperaments?.map(e => {
 						let t = e.temperament ? e.temperament : "Unknown";
@@ -39,7 +40,7 @@ const Filter = () => {
 				}
 			</select>
 			<select value="" onChange={handleSelectOrigin}>
-				<option value="" key="both">-both-</option>
+				<option selected value="" key="origin">ORIGIN</option>
 				<option value="existent" key="existent">Existent</option>
 				<option value="created" key="created">Created</option>
 			</select> 

@@ -62,9 +62,9 @@ const getDogs = async (req, res) => {
 				let filtered = dogs.filter(e => !e.fromDb)
 				dogs = filtered
 			}
-			else {
-				dogs = dogs;
-			}
+		}
+		else {
+			dogs = dogs;
 		}
 
 		// ORDENAMIENTO POR PESO

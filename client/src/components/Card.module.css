@@ -1,5 +1,5 @@
 .card {
-	background-color: rgba(44, 44, 44, 0.561);
+	background-color: rgba(136, 136, 136, 0.253);
 	max-width: 100%;
 	width: 90%;
 	max-height: 70%;
@@ -9,20 +9,22 @@
 	justify-content: flex-start;
 	align-items: center;
 	margin: 1%;
+	padding: 2px;
 }
 
 	.nameContainer {
 		max-width: 100%;
-		max-height: 15%;
+		max-height: 17%;
 	}
 		.name {
-			border-radius: 5px;
-			padding: 5px;
+			padding: 10px;
 			text-decoration: none;
-			color: white;
-			background-color: rgba(14, 14, 14, 0.644);
+			color: rgb(27, 27, 27);
+			background-color: rgba(223, 223, 223, 0.2);
 			text-align: center;
-			font-weight: 700;
+			font-weight: 600;
+			font-size: large;
+			font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
 		}
 
 	.cardElements {
@@ -43,9 +45,9 @@
 				flex-direction: column;
 				justify-content: center;
 				text-align: center;
-				background-color: rgba(14, 14, 14, 0.644);
+				background-color: rgba(209, 209, 209, 0.116);
 				width: 100px;
-				height: 30px;
+				height: 38px;
 			}
 
 		.imgDiv {
@@ -78,7 +80,7 @@
 				font-size: small;
 			}
 				.li {
-					background-color: rgba(14, 14, 14, 0.644);
+					background-color: rgba(209, 209, 209, 0.116);
 					color: white;
 					width: 100px;
 					height: 20px;

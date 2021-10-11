@@ -15,12 +15,11 @@ const Order = () => {
 	return (
 		<div>
 			<select defaultValue="" onChange={handleOrder}>
-				<option value="asc">A - Z</option>
-				<option value="desc">Z - A</option>
-			</select>
-			<select defaultValue="" onChange={handleOrder}>
-				<option value="light">lightest first</option>
-				<option value="heavy">heaviest first</option>
+				<option selected value="" key="order">ORDER</option>
+				<option value="asc" key="asc">from A to Z</option>
+				<option value="desc" key="desc">from Z to A</option>
+				<option value="light" key="light">lightest first</option>
+				<option value="heavy" key="heavy">heaviest first</option>
 			</select>
 		</div>
 	)

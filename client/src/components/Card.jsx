@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import s from "./Card.module.css";
 
 const Card = ({ image, name, temperament, weight, id }) => {
-	let dogTemperaments = temperament.split(", ");
+	let dogTemperaments = temperament?.split(", ");
 	return (
 		// ----- VERTICAL -----
 		
@@ -26,7 +26,7 @@ const Card = ({ image, name, temperament, weight, id }) => {
 				<div className={s.temperamentsDiv}>
 					<div className={s.temperaments}>
 					{ 
-						dogTemperaments.map(t => {
+						dogTemperaments?.map(t => {
 							return <li className={s.li} key={t}>{t}</li>
 						})
 					}

@@ -13,7 +13,6 @@ import {
 
 const initialState = {
 	dogs: {},
-	// allDogs: {},
 	temperaments: [],
 	page: 1,
 	name: "",

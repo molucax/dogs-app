@@ -1,0 +1,21 @@
+.nav {
+	width: 36vw;
+}
+
+.btnContainer {
+	height: 20vh;
+}
+
+.sof {
+	width: 25vw;
+	height: 50vh;
+	background-color: rgba(14, 14, 14, 0.644);
+	color: white;
+}
+
+.search {
+	height: 15vh;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
