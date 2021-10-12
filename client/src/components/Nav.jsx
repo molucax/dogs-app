@@ -16,37 +16,27 @@ const Nav = () => {
 	}
 	return (
 		<div className={s.nav}>
-			<div className={s.btnContainer}>
-				<NavLink to="/create">
-					<button>Create a Dog's Breed</button>
+			<div className={s.create}>
+				<NavLink className={s.navlink} to="/create">
+					<button className={s.btnCreate}>Create a Dog Breed</button>
 				</NavLink>
 			</div>
-			<div className={s.sof}>
-				<div className={s.search}>
-					<h5>Search:</h5>
-					<Search />
-				</div>
-				<div className={s.search}>
-					<h5>Filter:</h5>
-					<Filter />
-				</div>
-				<div className={s.search}>
-					<h5>Order:</h5>
-					<Order />
+			<div className={s.sforContainer}> 
+				<div className={s.sfor}>
+					<div className={s.inputContainer}>
+						<Search />
+					</div>
+					<div className={s.inputContainer}>
+						<Filter />
+					</div>
+					<div className={s.inputContainer}>
+						<Order />
+					</div>
+					<div className={s.btnContainer}>
+						<button className={s.btnReset} onClick={handleReset}>RESET</button>
+					</div>
 				</div>
 			</div>
-			<div className={s.reset}>
-				<button onClick={handleReset}>RESET</button>
-			</div>
-			<div className={s.showFilters}>
-				<p>{name}</p>
-				<p>{temperament}</p>
-				<p>{origin}</p>
-				<p>{order}</p>
-			</div>
-			{/*<div>
-				<p>{temperament ? `${temperament.toUpperCase()}` : null}</p>
-			</div>*/}
 		</div>
 	)
 }

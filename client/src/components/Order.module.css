@@ -1,0 +1,16 @@
+.select {
+	background-color: rgba(136, 136, 136, 0.253);
+	border: none;
+	font-size: large;
+	text-align: center;
+	height: 25px;
+	border-radius: 4px;
+}
+
+.select:hover {
+	background-color: rgba(136, 136, 136, 0.50);
+}
+
+.orderContainer {
+	text-align: center;
+}

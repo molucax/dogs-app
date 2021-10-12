@@ -15,7 +15,7 @@
 }
 
 .rightContainer {
-  width: 60vw;
+  width: 63vw;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -55,13 +55,13 @@
     padding-bottom: 10px;
   }
     .page {
-    background-color: rgba(136, 136, 136, 0.253);
-    width: 40px;
-    height: 35px;
-    text-align: center;
-    font-weight: 700;
-    font-size: x-large;
-    border-radius: 5px;
+      background-color: rgba(136, 136, 136, 0.253);
+      width: 40px;
+      height: 35px;
+      text-align: center;
+      font-weight: 700;
+      font-size: x-large;
+      border-radius: 5px;
     }
 
   .right {
@@ -89,4 +89,18 @@
         background-color: none;
       }
 
-  
+/*.navlink {
+  text-decoration-line: none;
+}
+*/
+.loadingDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.nomatch {
+  color: white;
+  padding: 10px;
+}

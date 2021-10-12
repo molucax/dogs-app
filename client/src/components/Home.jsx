@@ -7,6 +7,7 @@ import { getAllDogs, settingPage } from "../redux/actions/index.js";
 import s from "./Home.module.css";
 import Nav from "./Nav.jsx";
 import img from "../assets/dogdb.png";
+import loading from "../assets/loading.gif";
 
 const Home = () => {
 
@@ -45,20 +46,25 @@ const Home = () => {
 						dogs?.sliced?.length ?
 					 	dogs.sliced.map((e) => {
 							return (
-								// <NavLink to={`dog/${e.id}`}>
+								// <NavLink className={s.navlink} to={`dog/${e.id}`}>
 									<Card 
 										image={e.image ? e.image : img}
 										name={e.name} 
 										key={e.id} 
 										id={e.id} 
-										temperament={e.temperament} 
+										temperament={e.temperament ? e.temperament : "Unknown"} 
 										weight={e.weight}
 									/>
 								// </NavLink>
 							)
 						})
-						:
-						<div>Loading...</div>
+						:   
+						<div className={s.loadingDiv}>
+						{ 	!dogs?.error ? 
+							<img src={loading} alt="Loading..." width="200px" height="120px"/> :
+							<h2 className={s.nomatch}>Sorry, we couldn't find any dog that matches.</h2>
+						}
+						</div>
 					}
 				</div>
 			</div>

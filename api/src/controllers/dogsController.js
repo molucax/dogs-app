@@ -13,15 +13,40 @@ const getDogs = async (req, res) => {
 			dogsApi = (await axios.get(`
 				https://api.thedogapi.com/v1/breeds/search?q=${name}
 			`)).data;
+			dogsApi = dogsApi.map(e => {
+				return {
+					id: e.id,
+					name: e.name,
+					height: e.height.metric,
+					weight: e.weight.metric,
+					ls: e.life_span,
+					temperament: e.temperament,
+					image: e.reference_image_id ? `https://cdn2.thedogapi.com/images/${e.reference_image_id}.jpg` : null,
+				}
+			})
 			dogsDb = await Dog.findAll({
 				where: {
 					name: {
 						[Op.iLike]: `%${name}%`
 					}
+				},
+				include: {
+     		 		model: Temperament,
+     		 		attributes: ['temperament'],
+     				through: {
+        				attributes: []
+     				}
+     		 	}
+			})
+			dogsDb = dogsDb.map(e => e.dataValues)
+			dogsDb = dogsDb.map(obj => {
+				let temperament = obj.Temperaments?.map(e => e.temperament);
+				temperament = temperament.join(", ") 
+				return {
+					...obj,
+					temperament: temperament
 				}
 			})
-			console.log("dogs DB: ", dogsDb)
-			dogsDb = dogsDb.map(e => e.dataValues)
 			dogs = dogsDb.concat(dogsApi);	
 		}
 		else {
@@ -40,18 +65,20 @@ const getDogs = async (req, res) => {
 			dogsDb = await Dog.findAll({include: Temperament})
 			dogsDb = dogsDb.map(e => e.dataValues)
 			dogsDb = dogsDb.map(obj => { 
-				let temps = obj.Temperaments.map(elem => elem.temperament)
-				temps = temps.join(", ")
-				return {...obj, temperament: temps }
+				let temperament = obj.Temperaments.map(e => e.temperament)
+				temperament = temperament.join(", ")
+				return {
+					...obj, 
+					temperament: temperament 
+				}
 			})
 			dogs = dogsDb.concat(dogsApi);
 		}
 
 		// FILTRADO TEMPERAMENT
 		if (temperament && temperament !== "") {
-			dogs = dogs.filter(e => e.temperament.includes(temperament))
+			dogs = dogs.filter(e => e.temperament?.includes(temperament))
 		}
-
 		// FILTRADO POR ORIGEN
 		if (origin && origin !== "") {
 			if (origin === "created") {
@@ -63,35 +90,58 @@ const getDogs = async (req, res) => {
 				dogs = filtered
 			}
 		}
-		else {
-			dogs = dogs;
+
+		if (!dogs.length) {
+			return res.send({
+				error: true,
+			});
 		}
 
 		// ORDENAMIENTO POR PESO
-		if (order === "light") {
-			dogs = dogs.sort((a, b) => {
-				let aMin = a.weight.split(" - ")[0];
-				let bMin = b.weight.split(" - ")[0];
-				if (Number(aMin) > Number(bMin)) return 1;
-				if (Number(aMin) < Number(bMin)) return -1;
-				return 0;
-			})
+		if (order) {
+			if (order === "light") {
+				dogs = dogs.sort((a, b) => {
+				    let aa = a.weight.split(" - ");
+				    let bb = b.weight.split(" - ");
+				    let aMin = Number(aa[0]);
+				    let bMin = Number(bb[0]); 
+				    let aMax = aa.length === 1 ? Number(aa[0]) : Number(aa[1]);
+				    let bMax = bb.length === 1 ? Number(bb[0]) : Number(bb[1]);
+				    if (aMin > bMin) return 1;
+				    if (aMin < bMin) return -1;
+				    if (aMin === bMin) {
+				      let difA = aMax - aMin;
+				      let difB = bMax - bMin;
+				      if(difA > difB) return 1;
+				      if(difA < difB) return -1;
+				      if(difA === difB) return 0;
+				    }
+				    return 0;
+				})
+			}
+			if (order === "heavy") {
+				dogs = dogs.sort((a, b) => {
+				 	let aa = a.weight.split(" - ");
+				    let bb = b.weight.split(" - ");
+				    let aMin = Number(aa[0]);
+				    let bMin = Number(bb[0]); 
+				    let aMax = aa.length === 1 ? Number(aa[0]) : Number(aa[1]);
+				    let bMax = bb.length === 1 ? Number(bb[0]) : Number(bb[1]);
+				    if (aMax > bMax) return 1;
+				    if (aMax < bMax) return -1;
+				    if (aMax === bMax) {
+				      let difA = aMax - aMin;
+				      let difB = bMax - bMin;
+				      if(difA < difB) return 1;
+				      if(difA > difB) return -1;
+				      if(difA === difB) return 0;
+				    }
+				    return 0;
+				})
+			}
 		}
-		if (order === "heavy") {
-			dogs = dogs.sort((a, b) => {
-				let aMax = a.weight.split(" - ");
-				let bMax = b.weight.split(" - ");
-				aMax = aMax.length === 1 ? aMax[0] : aMax[1];
-				bMax = bMax.length === 1 ? bMax[0] : bMax[1];
-				if (Number(bMax) > Number(aMax)) return 1;
-				if (Number(bMax) < Number(aMax)) return -1;
-				return 0;
-			})
-		}
-		
 		return res.send({
 			all: dogs, 
-			// dogs TODOS, ya filtrados (si corresponde) por cualquier combinación de: name, temperament, order
 			count: dogs.length,
 		});
 	}
