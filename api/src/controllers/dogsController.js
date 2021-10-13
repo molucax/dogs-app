@@ -168,15 +168,20 @@ const getDogById = async (req, res) => {
   		  	}))[0].dataValues;
   		  	let t = dog.Temperaments.map(e => e.temperament)
   		  	t = t.join(", ")
-  		  	console.log(dog)
-  		  	dog = {...dog, temperament: t, image: "https://e7.pngegg.com/pngimages/552/1/png-clipart-dogs-dogs.png"}
+  		  	// console.log(dog)
+  		  	dog = {...dog, temperament: t }
 		}
 		else {
 			dog = (await axios.get("https://api.thedogapi.com/v1/breeds")).data
 			dog = dog.find(e => Number(e.id) === Number(id))
-			let w = dog.weight.metric;
-			let h = dog.height.metric;
-			dog = {...dog, weight: w, height: h}
+			if (!dog) {
+				dog = { error: true }
+			}
+			else {
+				let w = dog.weight.metric;
+				let h = dog.height.metric;
+				dog = {...dog, weight: w, height: h}
+			}
 		}
 		res.json(dog);
 	}

@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { getDog, removeDog } from "../redux/actions";
 import s from "./Dog.module.css";
+import pointer from "../assets/pointer.png";
+import loading from "../assets/loading.gif";
+import image from "../assets/dogdb.png";
 
 const Dog = (props) => {
 	const { id } = props.match.params;
@@ -26,18 +29,19 @@ const Dog = (props) => {
 	return (
 		<div className={s.container}> {/*row*/}
 			<div className={s.left}>
-				<button className={s.btn} onClick={goBack}>BACK</button>
+				<button className={s.btn} onClick={goBack}>{"<<<"}</button>
+				<img src={pointer} alt="back home" height="300px" width="450px"/>
 			</div>
 			<div className={s.right}>
 				{
-					dog ?
+					dog.name ?
 					<div className={s.loaded}>
 						<div className={s.rTop}>
 							<h1 className={s.p}>{dog.name}</h1>
 						</div>
 						<div className={s.rBottom}>
 							<div className={s.imgTemps}>
-								<img className={s.img} src={dog.fromDb ? dog.image : dog.image?.url} alt="img not found"/>
+								<img className={s.img} src={dog.fromDb ? image : dog.image?.url} alt="img not found"/>
 								<div className={s.temperaments}>
 									<h2 className={s.t}>Temperament:</h2>
 									{
@@ -50,7 +54,7 @@ const Dog = (props) => {
 							<div className={s.hwls}>
 								<div className={s.height}>
 									<h2 className={s.info}>Height:</h2>
-									<h3>{`${dog.height} cm`}</h3>
+									<h3>{`${dog.weight} cm`}</h3>
 								</div>
 								<div className={s.height}>
 									<h2 className={s.info}>Weight:</h2>
@@ -64,8 +68,15 @@ const Dog = (props) => {
 						</div>
 					</div>
 					:
-					<div className={s.loading}>Loading...</div>
-				}
+					<div className={s.loading}>
+						{ 
+							dog.error ?
+								<img src={loading} alt="Loading..." width="200px" height="120px" /> :
+								<h1>Sorry, we couldn't find this dog.</h1>
+						}
+					</div>
+					}
+			
 			</div>
 		</div>
 	)
