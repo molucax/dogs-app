@@ -1,10 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Search from "./Search.jsx";
-import Order from "./Order.jsx";
-import Filter from "./Filter.jsx";
+import Search from "./Nav/Search.jsx";
+import Order from "./Nav/Order.jsx";
+import Filter from "./Nav/Filter.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllDogs, resetState } from "../redux/actions";
+import { getAllDogs, resetState } from "../../redux/actions";
 import s from "./Nav.module.css";
 
 const Nav = () => {

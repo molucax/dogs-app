@@ -127,13 +127,13 @@ const getDogs = async (req, res) => {
 				    let bMin = Number(bb[0]); 
 				    let aMax = aa.length === 1 ? Number(aa[0]) : Number(aa[1]);
 				    let bMax = bb.length === 1 ? Number(bb[0]) : Number(bb[1]);
-				    if (aMax > bMax) return 1;
-				    if (aMax < bMax) return -1;
+				    if (aMax > bMax) return -1;
+				    if (aMax < bMax) return 1;
 				    if (aMax === bMax) {
 				      let difA = aMax - aMin;
 				      let difB = bMax - bMin;
-				      if(difA < difB) return 1;
-				      if(difA > difB) return -1;
+				      if(difA < difB) return -1;
+				      if(difA > difB) return 1;
 				      if(difA === difB) return 0;
 				    }
 				    return 0;

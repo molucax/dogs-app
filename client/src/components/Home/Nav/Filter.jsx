@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getTemperaments, getAllDogs, settingPage, settingTemperament, settingOrigin } from "../redux/actions";
+import { getTemperaments, getAllDogs, settingPage, settingTemperament, settingOrigin } from "../../../redux/actions";
 import s from "./Filter.module.css";
 
 const Filter = () => {

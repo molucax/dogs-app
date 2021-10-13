@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllDogs, settingOrder, settingPage } from "../redux/actions";
+import { getAllDogs, settingOrder, settingPage } from "../../../redux/actions";
 import s from "./Order.module.css";
 
 const Order = () => {

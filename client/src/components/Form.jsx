@@ -28,7 +28,7 @@ const Form = () => {
 			...formulario,
 			name: value
 		})
-		if(!/^[A-Za-z]+$/.test(value)) {
+		if(!/^[a-zA-Z\s]*$/.test(value)) {
 			setErrorName("Letters, please");
 		}
 		else {

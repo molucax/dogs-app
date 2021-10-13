@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllDogs, settingPage, settingName } from "../redux/actions";
+import { getAllDogs, settingPage, settingName } from "../../../redux/actions";
 import s from "./Search.module.css";
 
 const Search = () => {

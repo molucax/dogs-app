@@ -1,11 +1,11 @@
 import React from "react";
-import Card from "./Card.jsx";
+import Card from "./Home/Card.jsx";
 import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllDogs, settingPage } from "../redux/actions/index.js";
 import s from "./Home.module.css";
-import Nav from "./Nav.jsx";
+import Nav from "./Home/Nav.jsx";
 import img from "../assets/dogdb.png";
 import loading from "../assets/loading.gif";
 
