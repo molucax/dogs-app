@@ -1,5 +1,5 @@
 .landing {
-  background-image: url("../assets/blacklanding.jpg");
+  background-image: url("../assets/home.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
@@ -7,4 +7,29 @@
   bottom: 0;
   left: 0;
   right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20%;
+}
+
+.logo {
+  width: 300px;
+  height: 110px;
+  animation-duration: 2s;
+  animation-name: logo;
+  animation-iteration-count: infinite;
+}
+
+@keyframes logo {
+  50% {
+    width: 300px;
+    height: 120px;
+  }
+
+  50% {
+    width: 200px;
+    height: 85px;
+  }
 }

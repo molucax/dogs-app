@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTemperaments, createDog } from "../redux/actions";
+import s from "./Form.module.css";
 
 const Form = () => {
 	const dispatch = useDispatch();
@@ -98,129 +99,128 @@ const Form = () => {
 	}
 
 	return (
-		<div>
-			<form onSubmit={onSubmit}>
-				<div>
-					<h4>Breed's Name:</h4>
-					<input 
-						value={formulario.name} 
-						required="true" 
-						onChange={(e) => validateName(e.target.value)} 
-						name="name" 
-						type="text" 
-					/>
-					{ !errorName ? null : <span>{errorName}</span> }
-				</div>
-				<div>
-					<div>
+			<div className={s.formContainer}>
+				<form className={s.form} onSubmit={onSubmit}>
+					<div className={s.subContainer}>
+						<h4>Breed's Name:</h4>
+						<input
+							className={s.input}
+							value={formulario.name} 
+							required="true" 
+							onChange={(e) => validateName(e.target.value)} 
+							name="name" 
+							type="text" 
+						/>
+						{ !errorName ? null : <span>{errorName}</span> }
+					</div>
+					<div className={s.subContainer}>
 						<h4>Height:</h4>
-					</div>
-					<div>
-						<div>
-							<label>MIN</label>
-							<input 
-								value={formulario.hmin} 
-								required="true" 
-								onChange={(e) => validateNum(e)} 
-								min="1" 
-								max="300" 
-								name="hmin" 
-								type="number" 
-							/>
+						<div className={s.mmContainer}>
+							<div className={s.m}>
+								<label>MIN</label>
+								<input 
+									className={s.input}
+									value={formulario.hmin} 
+									required="true" 
+									onChange={(e) => validateNum(e)} 
+									min="1" 
+									max="300" 
+									name="hmin" 
+									type="number" 
+								/>
+							</div>
+							<div className={s.m}>
+								<label>MAX</label>
+								<input 
+									className={s.input}
+									value={formulario.hmax} 
+									required="true" 
+									onChange={(e) => validateNum(e)} 
+									min="1" 
+									max="300" 
+									name="hmax" 
+									type="number" 
+								/>
+							</div>
 						</div>
-						<div>
-							<label>MAX</label>
-							<input 
-								value={formulario.hmax} 
-								required="true" 
-								onChange={(e) => validateNum(e)} 
-								min="1" 
-								max="300" 
-								name="hmax" 
-								type="number" 
-							/>
-						</div>
-					</div>
-				</div>
-				<div>
-					<div>
 						<h4>Weight:</h4>
+						<div className={s.mmContainer}>
+							<div className={s.m}>
+								<label>MIN</label>
+								<input 
+									className={s.input}
+									value={formulario.wmin} 
+									required="true" 
+									onChange={(e) => validateNum(e)} 
+									min="1" 
+									max="300" 
+									name="wmin" 
+									type="number" 
+								/>
+							</div>
+							<div className={s.m}>
+								<label>MAX</label>
+								<input 
+									className={s.input}
+									value={formulario.wmax} 
+									required="true" 
+									onChange={(e) => validateNum(e)} 
+									min="1" 
+									max="300" 
+									name="wmax" 
+									type="number"
+								/>
+							</div>
+						</div>
+						<h4>Life Span:</h4>
+						<div className={s.mmContainer}>
+							<div className={s.m}>
+								<label>MIN</label>
+								<input 
+									className={s.input}
+									value={formulario.lsmin} 
+									onChange={(e) => validateNum(e)} 
+									min="1" 
+									max="30" 
+									name="lsmin" 
+									type="number" 
+								/>
+							</div>
+							<div className={s.m}>
+								<label>MAX</label>
+								<input 
+									className={s.input}
+									value={formulario.lsmax}
+									onChange={(e) => validateNum(e)} 
+									min="1" 
+									max="30" 
+									name="lsmax" 
+									type="number" 
+								/>
+							</div>
+						</div>
 					</div>
-					<div>
-						<div>
-							<label>MIN</label>
-							<input 
-								value={formulario.wmin} 
-								required="true" 
-								onChange={(e) => validateNum(e)} 
-								min="1" 
-								max="300" 
-								name="wmin" 
-								type="number" 
-							/>
-						</div>
-						<div>
-							<label>MAX</label>
-							<input 
-								value={formulario.wmax} 
-								required="true" 
-								onChange={(e) => validateNum(e)} 
-								min="1" 
-								max="300" 
-								name="wmax" 
-								type="number"
-							/>
-						</div>
-					</div>
-				</div>
-				<div>
-					<div>
-						<div>
-							<h4>Life Span:</h4>
-						</div>
-						<div>
-							<label>MIN</label>
-							<input 
-								value={formulario.lsmin} 
-								onChange={(e) => validateNum(e)} 
-								min="1" 
-								max="30" 
-								name="lsmin" 
-								type="number" 
-							/>
-						</div>
-						<div>
-							<label>MAX</label>
-							<input 
-								value={formulario.lsmax}
-								onChange={(e) => validateNum(e)} 
-								min="1" 
-								max="30" 
-								name="lsmax" 
-								type="number" 
-							/>
-						</div>
-					</div>
-					<div>
+					<div className={s.showErrorNum}>
 						{ !errorNum ? null : <span>{errorNum}</span> }
 					</div>
-				</div>
-				<h4>Temperaments:</h4>
-				<select onChange={handleChange} name="temperaments">
-					{
-						temperaments?.map(e => (
-							<option 
-								key={e.temperament} 
-								value={e.temperament}
-							>
-								{e.temperament}
-							</option>
-						))
-					}
-				</select>
-				<input type="submit" value="Create"/>
-			</form>
-		</div>
+					<div className={s.subContainer}>
+						<h4>Temperaments:</h4>
+						<select className={s.input}  onChange={handleChange} name="temperaments">
+							{
+								temperaments?.map(e => (
+									<option 
+										key={e.temperament} 
+										value={e.temperament}
+									>
+										{e.temperament}
+									</option>
+								))
+							}
+						</select>
+					</div>
+					<input type="submit" value="Create"/>
+				</form>
+			</div>
 	)
 }
 

@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "./Card.jsx";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllDogs, settingPage } from "../redux/actions/index.js";
@@ -13,6 +13,7 @@ const Home = () => {
 
 	const dispatch = useDispatch();
 	const { dogs, page, name, order, temperament, origin } = useSelector(state => state);
+	const history = useHistory();
 
 	useEffect(() => {
 		dispatch(getAllDogs({}))
@@ -46,8 +47,7 @@ const Home = () => {
 						dogs?.sliced?.length ?
 					 	dogs.sliced.map((e) => {
 							return (
-								// <NavLink className={s.navlink} to={`dog/${e.id}`}>
-									<Card 
+									<Card
 										image={e.image ? e.image : img}
 										name={e.name} 
 										key={e.id} 
@@ -55,7 +55,6 @@ const Home = () => {
 										temperament={e.temperament ? e.temperament : "Unknown"} 
 										weight={e.weight}
 									/>
-								// </NavLink>
 							)
 						})
 						:   

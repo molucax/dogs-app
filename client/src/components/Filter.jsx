@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { getTemperaments, getAllDogs, settingPage, settingTemperament, settingOrigin } from "../redux/actions";
 import s from "./Filter.module.css";
 
@@ -42,7 +41,7 @@ const Filter = () => {
 			<div className={s.filtersRow}>
 				<div className={s.eachFilter}>
 					<select className={s.select} value="" onChange={handleSelectTemperament}>
-						<option selected value="" key="temperament">- temperament -</option>
+						<option value="" key="temperament">- temperament -</option>
 						{
 							temperaments?.map(e => {
 								let t = e.temperament ? e.temperament : "Unknown";

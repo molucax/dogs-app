@@ -7,8 +7,7 @@ const Card = ({ image, name, temperament, weight, id }) => {
 	return (
 		// ----- VERTICAL -----
 		
-		<div className={s.card}>
-
+		<NavLink className={s.card} to={`dog/${id}`}>
 			{/*DIV 1*/}
 			<div className={s.nameContainer}>
 				<p className={s.name}>{name.toUpperCase()}</p>
@@ -22,7 +21,6 @@ const Card = ({ image, name, temperament, weight, id }) => {
 				<div className={s.imgDiv}>
 					<img className={s.img} src={image} alt={name}/>
 				</div>
-		
 				<div className={s.temperamentsDiv}>
 					<div className={s.temperaments}>
 					{ 
@@ -33,7 +31,7 @@ const Card = ({ image, name, temperament, weight, id }) => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</NavLink>
 	)
 }
 

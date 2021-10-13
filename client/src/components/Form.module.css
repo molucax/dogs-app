@@ -1,0 +1,51 @@
+.formContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	background-image: url("../assets/home.jpg");
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.form {
+	background-color: rgba(14, 14, 14, 0.644);
+	height: 98vh;
+	width: 25vw;
+}
+
+.mmContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+.mm {
+	display: flex;
+	flex-direction: column;
+}
+
+.m {
+	display: flex;
+	flex-direction: column;
+}
+
+.subContainer {
+	margin-bottom: 10%;
+
+}
+
+.input {
+	background-color: rgba(136, 136, 136, 0.253);
+	border: none;
+	font-size: large;
+	text-align: center;
+	height: 25px;
+	border-radius: 4px;
+}
