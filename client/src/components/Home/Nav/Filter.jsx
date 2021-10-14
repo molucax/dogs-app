@@ -60,7 +60,7 @@ const Filter = () => {
 				</div>
 				<div className={s.eachFilter}>
 					<select className={s.select} value="" onChange={handleSelectOrigin}>
-						<option selected value="" key="origin">- origin -</option>
+						<option value="" key="origin">- origin -</option>
 						<option value="existent" key="existent">Existent</option>
 						<option value="created" key="created">Created</option>
 					</select> 

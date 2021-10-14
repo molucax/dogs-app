@@ -1,6 +1,5 @@
 import React from "react";
 import Card from "./Home/Card.jsx";
-import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllDogs, settingPage } from "../redux/actions/index.js";
@@ -13,7 +12,6 @@ const Home = () => {
 
 	const dispatch = useDispatch();
 	const { dogs, page, name, order, temperament, origin } = useSelector(state => state);
-	const history = useHistory();
 
 	useEffect(() => {
 		dispatch(getAllDogs({}))

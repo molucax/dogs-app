@@ -45,7 +45,7 @@ export default function reducer (state = initialState, { type, payload }) {
 				let sliced = all.slice((dpp * (page-1)), ((dpp * (page-1)) + dpp))
 				dogs = {...dogs, all: all, count: all.length, sliced: sliced}
 			}
-			return {
+			return  {
 				...state,
 				dogs: dogs,
 			}

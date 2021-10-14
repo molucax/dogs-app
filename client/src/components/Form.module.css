@@ -1,7 +1,7 @@
 .formContainer {
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	flex-direction: row;
+	justify-content: flex-end;
 	text-align: center;
 	background-image: url("../assets/home.jpg");
 	background-attachment: fixed;
@@ -17,7 +17,8 @@
 .form {
 	background-color: rgba(14, 14, 14, 0.644);
 	height: 98vh;
-	width: 25vw;
+	width: 27vw;
+	margin-top: 5px;
 }
 
 .mmContainer {
@@ -49,3 +50,47 @@
 	height: 25px;
 	border-radius: 4px;
 }
+
+.showTemperament {
+	width: 20vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.pContainer {
+	height: auto;
+	width: 15vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.p {
+	background-color: rgba(136, 136, 136, 0.253);
+}
+
+.error {
+	color: rgb(246, 80, 80);
+	height: 10px;
+}
+
+.left {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: center;
+		width: 50vw;
+		padding-right: 10%;
+	}
+
+	.btn {
+			width: 120px;
+			height: 50px;
+			background-color: black;
+			color: white;
+			font-size: x-large;
+			border-radius: 7px ;
+			border-style: none;
+		}

@@ -3,13 +3,12 @@ import { NavLink } from "react-router-dom";
 import Search from "./Nav/Search.jsx";
 import Order from "./Nav/Order.jsx";
 import Filter from "./Nav/Filter.jsx";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAllDogs, resetState } from "../../redux/actions";
 import s from "./Nav.module.css";
 
 const Nav = () => {
 	const dispatch = useDispatch();
-	const { name, temperament, origin, order } = useSelector(state => state)
 	const handleReset = () => {
 		dispatch(resetState())
 		dispatch(getAllDogs({}))
