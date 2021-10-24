@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { getTemperaments, createDog } from "../redux/actions";
 import s from "./Form.module.css";
 import pointer from "../assets/pointer.png";
@@ -88,6 +88,7 @@ const Form = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+		
 		dispatch(createDog(formulario))
 		alert("Breed created successfully!");
 		setFormulario({
@@ -236,7 +237,7 @@ const Form = () => {
 						</select>
 					</div>
 					<div>
-						<input type="submit" value="Create"/>
+						<input className={s.btnCreate} type="submit" value="Create"/>
 					</div>
 				</form>
 				<div className={s.showTemperament}>

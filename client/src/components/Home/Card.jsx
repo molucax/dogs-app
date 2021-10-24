@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Card.module.css";
 
-const Card = ({ image, name, temperament, weight, id }) => {
+const Card = ({ image, name, temperament, weight, id, height }) => {
 	let dogTemperaments = temperament?.split(", ");
 	return (
 		// ----- VERTICAL -----
@@ -17,6 +17,7 @@ const Card = ({ image, name, temperament, weight, id }) => {
 			<div className={s.cardElements}>
 				<div className={s.weightDiv}>
 					<p className={s.weight}>{`${weight} kg`}</p>
+					<p className={s.weight}>{`${height} cm`}</p>
 				</div>
 				<div className={s.imgDiv}>
 					<img className={s.img} src={image} alt={name}/>

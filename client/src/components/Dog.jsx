@@ -18,7 +18,7 @@ const Dog = (props) => {
         return () => {
             dispatch(removeDog())
         }
-    },[dispatch,id])
+    },[dispatch, id])
 
     const handleClick = () => {
     	history.goBack();
@@ -67,7 +67,7 @@ const Dog = (props) => {
 								</div>	
 								<div className={s.height}>
 									<h2 className={s.info}>Life Span:</h2>
-									<h3>{dog.life_span}</h3>
+									<h3>{dog.fromDb ? dog.ls : dog.life_span}</h3>
 								</div>
 							</div>
 						</div>

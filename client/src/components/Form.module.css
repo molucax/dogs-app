@@ -93,4 +93,13 @@
 			font-size: x-large;
 			border-radius: 7px ;
 			border-style: none;
-		}
+	}
+	.btnCreate {
+		width: 100px;
+		height: 40px;
+		background-color: black;
+		color: white;
+		font-size: large;
+		border-radius: 7px ;
+		border-style: none;
+	}

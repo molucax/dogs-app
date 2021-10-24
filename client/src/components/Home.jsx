@@ -52,6 +52,7 @@ const Home = () => {
 										id={e.id} 
 										temperament={e.temperament ? e.temperament : "Unknown"} 
 										weight={e.weight}
+										height={e.height}
 									/>
 							)
 						})
