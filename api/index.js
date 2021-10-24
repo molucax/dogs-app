@@ -23,7 +23,7 @@ const { preloadTemperaments } = require("./src/controllers/temperamentController
 
 // Syncing all the models at once.
 conn.sync({ force: false }).then(() => {
-  server.listen(3001, async () => {
+  server.listen(process.env.PORT, async () => {
     console.log("%s loading temperaments...");
     const preload = await preloadTemperaments();
     console.log("%s " + preload);
