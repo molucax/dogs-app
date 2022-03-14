@@ -22,11 +22,11 @@ const { conn } = require('./src/db.js');
 const { preloadTemperaments } = require("./src/controllers/temperamentController.js");
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then(() => {
   server.listen(process.env.PORT, async () => {
     console.log("%s loading temperaments...");
     const preload = await preloadTemperaments();
     console.log("%s " + preload);
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
+    console.log(`%s listening at ${process.env.PORT}`); // eslint-disable-line no-console
   });
 });
