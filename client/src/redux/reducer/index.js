@@ -6,25 +6,31 @@ import {
 	SET_ORDER, 
 	SET_TEMPERAMENT, 
 	SET_ORIGIN, 
-	GET_DOG, 
+	SET_DOG, 
 	REMOVE_DOG,
 	RESET_STATE
 } from "../actions";
 
 const initialState = {
-	dogs: {},
-	temperaments: [],
+	dogs: null,
+	temperaments: null,
 	page: 1,
 	name: "",
 	order: "",
 	temperament: "",
 	origin: "",
-	dog: {},
+	dog: null,
+  filters: false
 }
 
 export default function reducer (state = initialState, { type, payload }) {
 	// console.log(payload)
 	switch(type) {
+    case "OPEN_FILTERS":
+      return {
+        ...state,
+        filters: payload
+      }
 		case GET_ALL_DOGS:
 			let dogs = payload;
 			if (!dogs.error) {
@@ -96,7 +102,7 @@ export default function reducer (state = initialState, { type, payload }) {
 				temperaments: payload
 			}
 
-		case GET_DOG:
+		case SET_DOG:
 			return {
 				...state,
 				dog: payload

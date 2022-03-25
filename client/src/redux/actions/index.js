@@ -6,12 +6,12 @@ export const SET_ORDER = "SET_ORDER";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
 export const SET_ORIGIN = "SET_ORIGIN";
 export const SET_TEMPERAMENT = "SET_TEMPERAMENT";
-export const GET_DOG = "GET_DOG";
+export const SET_DOG = "SET_DOG";
 export const REMOVE_DOG = "REMOVE_DOG";
 export const CREATE_DOG = "CREATE_DOG";
 export const RESET_STATE = "RESET_STATE";
 
-export const getAllDogs = ({ order, temperament, name, origin }) => {
+export const getDogBreeds = ({ order, temperament, name, origin }) => {
 	return async (dispatch) => {
 		try { 
 			let dogs = (await axios.get(`/dogs?
@@ -93,7 +93,7 @@ export const getDog = (id) => {
 		try {
 			let dog = await axios.get(`/dogs/${id}`)
 			return dispatch({
-				type: GET_DOG,
+				type: SET_DOG,
 				payload: dog.data
 			})
 		}

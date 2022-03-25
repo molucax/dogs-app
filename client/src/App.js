@@ -1,20 +1,26 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import LandingPage from "./components/LandingPage.jsx";
-import Home from "./components/Home.jsx";
-import Dog from "./components/Dog.jsx";
-import Form from "./components/Form.jsx";
-import s from "./App.module.css";
+import styled from "styled-components";
+import NewHome from "./components/NewHome/NewHome.jsx";
+import Navbar from "./components/Navbar/Navbar.jsx";
+import DogScreen from "./components/DogScreen/DogScreen.jsx";
+import CreateScreen from "./components/CreateScreen/CreateScreen.jsx";
 
 const App = () => {
   return (
-    <div className={s.app}>
-      <Route exact path="/" component={LandingPage} />
-      <Route exact path="/home" component={Home} />
-      <Route path="/dog/:id" component={Dog} />
-      <Route path="/create" component={Form} />
-    </div>
+    <Wrapper>
+      <Route path="/" component={Navbar} />
+      <Route path="/home" component={NewHome} />
+      <Route path="/dog/:id" component={DogScreen} />
+      <Route path="/create" component={CreateScreen} />
+    </Wrapper>
   );
 }
 
 export default App;
+
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+`
