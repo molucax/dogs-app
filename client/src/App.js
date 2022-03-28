@@ -10,7 +10,7 @@ const App = () => {
   return (
     <Wrapper>
       <Route path="/" component={Navbar} />
-      <Route path="/home" component={NewHome} />
+      <Route exact path="/" component={NewHome} />
       <Route path="/dog/:id" component={DogScreen} />
       <Route path="/create" component={CreateScreen} />
     </Wrapper>

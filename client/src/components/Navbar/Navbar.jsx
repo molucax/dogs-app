@@ -21,7 +21,7 @@ export default function Navbar() {
     <Wrapper>
       <Icons>
         <IconContainer title="Home">
-          <Link to="/home">
+          <Link to="/">
             <GiDogHouse color="white" size="90%" />
           </Link>
         </IconContainer>
@@ -30,7 +30,7 @@ export default function Navbar() {
             <BsFolderPlus color="white" size="85%" />
           </Link>
         </IconContainer>
-        {location.pathname.includes("home") ? (
+        {location.pathname === "/" ? (
           <IconContainer
             title="Filters"
             onClick={() => dispatch({type: "OPEN_FILTERS", payload: !filters})}
